@@ -41,8 +41,9 @@ encodeListKnow,studentIds = encodeListKnowWithIds
 print(studentIds)
 print("Load Encoding File Finish....")
 
-
+modeType= 0
 counter = 0
+id = 0 
 
 while True:
     success, img = cap.read()
@@ -83,10 +84,19 @@ while True:
                 bbox = 55 +x1 , 162 +y1 , x2-x1 , y2-y1
                 imgBackground = cvzone.cornerRect(imgBackground ,bbox ,rt=0)
                 id = studentIds[matcheIndex]
+
                 if counter == 0: 
                      counter = 1 
-                     modeType = 1 
+                     modeType = 1
             
+            if counter!= 0 :
+                #Check Information from Database
+                if counter ==1:
+                     
+                
+
+
+                counter+=1
 
 
 
