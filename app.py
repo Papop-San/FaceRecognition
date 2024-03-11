@@ -4,6 +4,10 @@ import pickle
 import face_recognition
 import numpy as np
 import cvzone
+import firebase_admin 
+from firebase_admin import db
+from firebase_admin import storage
+
 
 
 
@@ -41,9 +45,8 @@ encodeListKnow,studentIds = encodeListKnowWithIds
 print(studentIds)
 print("Load Encoding File Finish....")
 
-modeType= 0
+modeType =0
 counter = 0
-id = 0 
 
 while True:
     success, img = cap.read()
@@ -77,30 +80,21 @@ while True:
             print("Match Index" , matcheIndex)
 
             if matches[matcheIndex]:
-                print('Know Face Detected ' )
+                # print('Know Face Detected ' )
                 print(studentIds[matcheIndex])
                 y1 ,x2 ,y2 ,x1 = faceLoc
                 y1 ,x2 ,y2 ,x1 = y1*4 , x2*4 , y2*4 , x1*4      
                 bbox = 55 +x1 , 162 +y1 , x2-x1 , y2-y1
                 imgBackground = cvzone.cornerRect(imgBackground ,bbox ,rt=0)
                 id = studentIds[matcheIndex]
-
                 if counter == 0: 
                      counter = 1 
-                     modeType = 1
+                     modeType = 1 
+            else:
+                print("Unknow Face")
             
-            if counter!= 0 :
-                #Check Information from Database
-                if counter ==1:
-                     
-                
 
 
-                counter+=1
-
-
-
-            
     # Display the composite image
     cv2.imshow("Face Attendance", imgBackground)
 

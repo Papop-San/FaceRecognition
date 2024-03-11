@@ -44,7 +44,6 @@ def find_encoding(images_list):
         # Detect faces in the image
         face_locations = face_recognition.face_locations(rgb_img)
         if len(face_locations) == 0:
-            print("No face found in the image.")
             continue
         
         # Extract face encodings
