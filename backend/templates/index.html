@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style/input.css" rel="stylesheet">
+    <title>Face Detection</title>
+</head>
+<body class="">
+    <h1>ระบบตรวจผู้เข้าสอบ</h1>
+    <div>
+        
+        
+
+        <div class="flex flex-row">
+            <video id="videoElement" width="538" height="409" autoplay></video>
+        </div>
+        <div>
+            <h2>รายละเอียดของนักศึกษา</h2>
+            <ul id="studentDetails">
+                <!-- Student ID details will be displayed here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoElement');
+
+        // Access the webcam and stream video
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) => {
+                console.error('Error accessing webcam:', err);
+            });
+
+        // Send video frame to Flask backend for face detection
+        setInterval(() => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const dataURL = canvas.toDataURL('image/jpeg');
+
+            fetch('/detect_faces', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image_data: dataURL })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const studentDetailsList = document.getElementById('studentDetails');
+                studentDetailsList.innerHTML = '';
+
+                data.detected_faces.forEach(face => {
+                    const studentData = face.student_data;
+
+                    // Create list items for name and department
+                    const nameItem = document.createElement('li');
+                    nameItem.textContent = `Name: ${studentData.name}`;
+                    studentDetailsList.appendChild(nameItem);
+
+                    const departItem = document.createElement('li');
+                    departItem.textContent = `Department: ${studentData.depart}`;
+                    studentDetailsList.appendChild(departItem);
+                });
+                
+            })
+            .catch(error => console.error('Error detecting faces:', error));
+        }, 1000); // Send video frame every 1 second
+    </script>
+</body>
+</html>
