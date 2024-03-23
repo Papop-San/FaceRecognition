@@ -8,7 +8,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 from firebase_admin import storage
 
-cred = credentials.Certificate("faceattenreal-time-firebase-adminsdk-vdkyg-eaaec9b1c6.json")
+cred = credentials.Certificate("./Encode_app/faceattenreal-time-firebase-adminsdk-vdkyg-eaaec9b1c6.json")
 firebase_admin.initialize_app(cred,{
     'databaseURL':"https://faceattenreal-time-default-rtdb.firebaseio.com/",
     'storageBucket': "faceattenreal-time.appspot.com"

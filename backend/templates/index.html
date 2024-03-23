@@ -4,29 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./style/input.css" rel="stylesheet">
+    <!-- Include Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Add any custom styles here */
+        /* You can add custom styles here if needed */
+    </style>
     <title>Face Detection</title>
 </head>
-<body class="">
-    <h1>ระบบตรวจผู้เข้าสอบ</h1>
-    <div>
+<body style="background-color: #007CB9;" class="items-center">
+    <div class="mt-4 w-1/2 mx-auto text-center rounded-full" style="border: 1px solid black;">
+        <h1 class="text-2xl font-bold py-4  text-white  rounded-full" style="background-color: #5c527f;">ระบบตรวจผู้เข้าสอบ</h1>
+    </div>
+    <div style="background-color: #5c527f; border: 1px solid black;" class="mt-5 w-3/4 h-2/3 mx-auto items-center rounded-lg">
+        <div class="container mx-auto px-4 py-8 flex ">
+            <div class="w-1/2 p-4 ">
+                <video id="videoElement" width="320" height="240" autoplay class="w-full"></video>
+            </div>
         
-        
-
-        <div class="flex flex-row">
-            <video id="videoElement" width="538" height="409" autoplay></video>
+            <div class="w-1/2 p-4">
+                <div class="bg-white ml-20 border border-black " style="width: 350px; height: 450px;">
+                    <h2 class="text-xl font-semibold mb-4 pt-5 text-center">รายละเอียดของนักศึกษา</h2>
+                    <ul id="studentDetails" class="list-none pl-6 text-center">
+                        <div class=" flex items-center p-4">
+                            <i class="large material-icons text-5xl ml-8 mr-8">account_circle</i>
+                            <li class="ml-2 text-center"><span id="nameItem"></span></li>
+                        </div>
+                        <div class=" flex items-center p-4">
+                            <i class="large material-icons text-5xl ml-8 mr-8">assignment_ind</i>
+                            <li><span id="StudentIdItem"></span></li>
+                        </div>
+                        <div class=" flex items-center p-4">
+                            <i class="large material-icons text-5xl ml-8 mr-8">school</i>
+                            <li><span id="departmentItem"></span></li>
+                        </div>
+                        <div class="flex items-center p-4 pb-7">
+                            <li class="text-xl ml-8 mr-8">College Year</li>
+                            <li><span id="yearItem"></span></li>
+                        </div>
+                        
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div>
-            <h2>รายละเอียดของนักศึกษา</h2>
-            <ul id="studentDetails">
-                <!-- Student ID details will be displayed here -->
-            </ul>
+        <div class="bg-white mx-7" style="width: 530px;">
+            hello
         </div>
     </div>
 
     <script>
+        // JavaScript code remains the same
         const video = document.getElementById('videoElement');
+        // Name
+        const nameItem = document.getElementById('nameItem');
+        // Department
+        const departmentItem = document.getElementById('departmentItem');
+        // Yearly
+        const yearItem = document.getElementById('yearItem');
+        // ID
+        const StudentIdItem = document.getElementById('StudentIdItem');
 
-        // Access the webcam and stream video
         navigator.mediaDevices.getUserMedia({ video: true })
             .then((stream) => {
                 video.srcObject = stream;
@@ -54,20 +92,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                const studentDetailsList = document.getElementById('studentDetails');
-                studentDetailsList.innerHTML = '';
-
                 data.detected_faces.forEach(face => {
                     const studentData = face.student_data;
 
-                    // Create list items for name and department
-                    const nameItem = document.createElement('li');
-                    nameItem.textContent = `Name: ${studentData.name}`;
-                    studentDetailsList.appendChild(nameItem);
-
-                    const departItem = document.createElement('li');
-                    departItem.textContent = `Department: ${studentData.depart}`;
-                    studentDetailsList.appendChild(departItem);
+                    // Set the content of the HTML elements using variables
+                    nameItem.textContent = studentData.name;
+                    departmentItem.textContent = studentData.depart;
+                    yearItem.textContent = studentData.year;
+                    StudentIdItem.textContent = studentData.id;
                 });
                 
             })
