@@ -11,52 +11,48 @@ ref = db.reference('Subject')
 
 data = {
     "INE": {
-        "23-03-2024": {
-            "06-00-00": {
-                'subject_name': 'Mathematics',
-                'time_for_test': '06:00:00-09:00:00'
-            },
-            "09-00-00": {
+        "23:03:2024": {
+            "09:00:00": {
                 'subject_name': 'English',
                 'time_for_test': '09:00:00-12:00:00'
             },
-            "13-00-00": {
+            "13:00:00": {
                 'subject_name': 'Thai',
                 'time_for_test': '13:00:00-16:00:00'
             }
         },
-        "24-03-2024": {
-            "09-00-00": {
+        "24:03:2024": {
+            "09:00:00": {
                 'subject_name': 'English',
                 'time_for_test': '09:00:00-12:00:00'
             },
-            "13-00-00": {
+            "13:00:00": {
                 'subject_name': 'Thai',
                 'time_for_test': '13:00:00-16:00:00'
             }
         }
     },
     "INET": {
-        "23-03-2024": {
-            "06-00-00": {
+        "23:03:2024": {
+            "06:00:00": {
                 'subject_name': 'Computer Science',
                 'time_for_test': '06:00:00-09:00:00'
             },
-            "09-00-00": {
+            "09:00:00": {
                 'subject_name': 'Cybersecurity',
                 'time_for_test': '09:00:00-12:00:00'
             },
-            "13-00-00": {
+            "13:00:00": {
                 'subject_name': 'Thai',
                 'time_for_test': '13:00:00-16:00:00'
             }
         },
-        "24-03-2024": {
-            "09-00-00": {
+        "24:03:2024": {
+            "09:00:00": {
                 'subject_name': 'English',
                 'time_for_test': '09:00:00-12:00:00'
             },
-            "13-00-00": {
+            "13:00:00": {
                 'subject_name': 'Thai',
                 'time_for_test': '13:00:00-16:00:00'
             }

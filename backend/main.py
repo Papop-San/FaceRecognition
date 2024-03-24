@@ -62,17 +62,22 @@ def detect_faces():
             # Retrieve department of the detected student
             department = student_data.get("depart", "Unknown")
 
+            # Get today's date
+            current_date = datetime.now().strftime("%d:%m:%Y")
+
             # Adjust the current time
             current_time = datetime.now().time()
             adjusted_time = adjust_time(current_time)
 
-            # Search for the department in the subjects
-            subject_ref = db.reference(f"Subject/{department}/{adjusted_time}")
+            # Search for the department, date, and time in the subjects
+            subject_ref = db.reference(f"Subject/{department}/{current_date}/{adjusted_time}")
             subject_info = subject_ref.get()
 
-            print(department)
-            print(adjusted_time)
-            print(subject_info)
+            print("Department:", department)
+            print("Date:", current_date)
+            print("Time:", adjusted_time)
+            print("Subject Info:", subject_info)
+
             response_data["detected_faces"].append({
                 "student_id": student_id,
                 "location": faceLoc,
