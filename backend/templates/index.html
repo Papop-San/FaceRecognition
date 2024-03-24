@@ -17,21 +17,21 @@
     <div class="mt-4 w-1/2 mx-auto text-center rounded-full" style="border: 2px solid black;">
         <h1 class="text-2xl font-bold py-4  text-white  rounded-full" style="background-color: #5c527f;">ระบบตรวจผู้เข้าสอบ</h1>
     </div>
-    <div style="background-color: #5c527f; border: 2px solid black;" class="mt-5 w-3/4 h-2/3 mx-auto items-center rounded-lg">
+    <div style="background-color: #5c527f; border: 2px solid black;" class="mt-5 w-3/4 h-2/3 mx-auto  items-center rounded-lg">
         <div class="container mx-auto px-4 py-8 flex ">
             <div class="w-1/2 p-4 ">
                 <video id="videoElement" width="320" height="240" autoplay class="w-full"></video>
                 <div style="width: 500px; " class="bg-white ml-1 mb-10 mt-6 flex p-3">
                     <i class="large material-icons text-5xl ml-8 mr-8">school</i>
-                    <div>
-                        <p>1</p>
-                        <p>2</p>
+                    <div id="subjectInfo">
+                        <p id="subjectName"></p>
+                        <p id="timeForTest"></p>
                     </div>
                 </div>
             </div>
         
             <div class="w-1/2 p-4">
-                <div class="bg-white ml-20 border mx-auto" style="width: 400px; height: 450px; border: 2px solid black;">
+                <div class="bg-white ml-20 border mx-auto w-auto h-auto" style="width: 400px; height: 450px; border: 2px solid black;">
                     <h2 class="text-xl font-semibold mb-4 pt-5 text-center">รายละเอียดของนักศึกษา</h2>
                     <ul id="studentDetails" class="list-none pl-6 text-center">
                         <div class=" flex items-center p-4">
@@ -70,6 +70,9 @@
         const yearItem = document.getElementById('yearItem');
         // ID
         const StudentIdItem = document.getElementById('StudentIdItem');
+        // Subject Info
+        const subjectName = document.getElementById('subjectName');
+        const timeForTest = document.getElementById('timeForTest');
 
         navigator.mediaDevices.getUserMedia({ video: true })
             .then((stream) => {
@@ -100,12 +103,22 @@
             .then(data => {
                 data.detected_faces.forEach(face => {
                     const studentData = face.student_data;
+                    const subjectInfo = face.subject_info;
 
                     // Set the content of the HTML elements using variables
                     nameItem.textContent = studentData.name;
                     departmentItem.textContent = studentData.depart;
                     yearItem.textContent = studentData.year;
                     StudentIdItem.textContent = studentData.id;
+
+                    // Display subject information
+                    if (subjectInfo) {
+                        subjectName.textContent = subjectInfo.subject_name;
+                        timeForTest.textContent = subjectInfo.time_for_test;
+                    } else {
+                        subjectName.textContent = "";
+                        timeForTest.textContent = "";
+                    }
                 });
                 
             })

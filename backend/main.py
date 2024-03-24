@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request,render_template 
+from flask import Flask, jsonify, request, render_template 
 import cv2
 import pickle
 import face_recognition
@@ -6,6 +6,7 @@ import numpy as np
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+from datetime import datetime, time
 
 app = Flask(__name__)
 
@@ -24,6 +25,12 @@ encodeListKnow, studentIds = encodeListKnowWithIds
 cap = cv2.VideoCapture(0)
 cap.set(3, 320)
 cap.set(4, 240)
+
+def adjust_time(current_time):
+    if current_time >= time(13, 0) and current_time <= time(16, 0):
+        return time(13, 0)
+    else:
+        return time(9, 0)
 
 @app.route('/')
 def index():
@@ -52,10 +59,26 @@ def detect_faces():
             student_data_ref = db.reference(f"Students/{student_id}")
             student_data = student_data_ref.get()
 
+            # Retrieve department of the detected student
+            department = student_data.get("depart", "Unknown")
+
+            # Adjust the current time
+            current_time = datetime.now().time()
+            adjusted_time = adjust_time(current_time)
+
+            # Search for the department in the subjects
+            subject_ref = db.reference(f"Subject/{department}/{adjusted_time}")
+            subject_info = subject_ref.get()
+
+            print(department)
+            print(adjusted_time)
+            print(subject_info)
             response_data["detected_faces"].append({
                 "student_id": student_id,
                 "location": faceLoc,
-                "student_data": student_data
+                "department": department,
+                "student_data": student_data,
+                "subject_info": subject_info
             })
     
     return jsonify(response_data)
