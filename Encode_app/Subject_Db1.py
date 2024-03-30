@@ -23,14 +23,24 @@ data = {
         },
         "24:03:2024": {
             "09:00:00": {
-                'subject_name': 'English',
+                'subject_name': 'Cyber Security',
                 'time_for_test': '09:00:00-12:00:00'
             },
             "13:00:00": {
-                'subject_name': 'Thai',
+                'subject_name': 'Machine Learning',
                 'time_for_test': '13:00:00-16:00:00'
             }
-        }
+        },
+         "28:03:2024": {
+            "09:00:00": {
+                'subject_name': 'Telecomunication',
+                'time_for_test': '09:00:00-12:00:00'
+            },
+            "13:00:00": {
+                'subject_name': 'COOP-Perative',
+                'time_for_test': '13:00:00-16:00:00'
+            }
+        },
     },
     "INET": {
         "23:03:2024": {
@@ -46,6 +56,7 @@ data = {
                 'subject_name': 'Thai',
                 'time_for_test': '13:00:00-16:00:00'
             }
+
         },
         "24:03:2024": {
             "09:00:00": {
@@ -54,6 +65,16 @@ data = {
             },
             "13:00:00": {
                 'subject_name': 'Thai',
+                'time_for_test': '13:00:00-16:00:00'
+            }
+        },
+        "28:03:2024": {
+            "09:00:00": {
+                'subject_name': 'Data Stucture',
+                'time_for_test': '09:00:00-12:00:00'
+            },
+            "13:00:00": {
+                'subject_name': 'Cyber Security',
                 'time_for_test': '13:00:00-16:00:00'
             }
         },

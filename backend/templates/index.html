@@ -55,8 +55,6 @@
                 </div>
             </div>
         </div>
-        
-        
     </div>
 
     <script>
@@ -106,21 +104,20 @@
                     const subjectInfo = face.subject_info;
 
                     // Set the content of the HTML elements using variables
-                    nameItem.textContent = studentData.name;
-                    departmentItem.textContent = studentData.depart;
-                    yearItem.textContent = studentData.year;
-                    StudentIdItem.textContent = studentData.id;
+                    nameItem.textContent = studentData ? studentData.name : "Unknown";
+                    departmentItem.textContent = studentData ? studentData.depart : "Unknown";
+                    yearItem.textContent = studentData ? studentData.year : "Unknown";
+                    StudentIdItem.textContent = studentData ? studentData.id : "Unknown";
 
                     // Display subject information
                     if (subjectInfo) {
-                        subjectName.textContent = subjectInfo.subject_name;
-                        timeForTest.textContent = subjectInfo.time_for_test;
+                        subjectName.textContent = subjectInfo.subject_name ? subjectInfo.subject_name : "Unknown";
+                        timeForTest.textContent = subjectInfo.time_for_test ? subjectInfo.time_for_test : "Unknown";
                     } else {
-                        subjectName.textContent = "";
-                        timeForTest.textContent = "";
+                        subjectName.textContent = "Unknown";
+                        timeForTest.textContent = "Unknown";
                     }
                 });
-                
             })
             .catch(error => console.error('Error detecting faces:', error));
         }, 1000); // Send video frame every 1 second

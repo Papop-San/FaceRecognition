@@ -16,17 +16,81 @@ data = {
         "id":'6406022620096',
         "depart":"INE",
         "year":3,
-        "gpa": 2.5,
-        "province":"PrachinBuri"
     },
     "6406022610031":{
         "name":"Papop Sangeamsak",
         'id':'6406022610031',
         "depart":"INE",
         "year":3,
-        "gpa": 3.08,
-        "province":"Sisaket"
-    }
+    },
+    "6406022610040":{
+        "name":"Pawaris Pitirit",
+        'id':'6406022610040',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022610058":{
+        "name":"Piyawan Nimpraprut",
+        'id':'6406022610058',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022610023":{
+        "name":"Nititat Bangpra",
+        'id':'6406022610023',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022620011":{
+        "name":"Jakapat Jodduangchan",
+        'id':'6406022620011',
+        "depart":"INE",
+        "year":3,
+    },
+
+    "6406022620037":{
+        "name":"Bunnapon",
+        'id':'6406022620037',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022620053":{
+        "name":"Watcharakron",
+        'id':'6406022620053',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022620061":{
+        "name":"Mathawee Robkhob",
+        'id':'6406022620061',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022620070":{
+        "name":"Rawiporn Suamsiri",
+        'id':'6406022620070',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022620088":{
+        "name":"Puntita Chaungchawna",
+        'id':'6406022620088',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022630016":{
+        "name":"Kamonwan Janmanee",
+        'id':'6406022630016',
+        "depart":"INE",
+        "year":3,
+    },
+    "6406022420045":{
+        "name":"Teeraporn Petchrote",
+        'id':'6406022420045',
+        "depart":"INET",
+        "year":3,
+    },
+    
 }
 
 for key , value in data.items():

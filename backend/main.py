@@ -7,6 +7,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from datetime import datetime, time
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -23,8 +24,8 @@ encodeListKnow, studentIds = encodeListKnowWithIds
 
 # Initialize the camera
 cap = cv2.VideoCapture(0)
-cap.set(3, 320)
-cap.set(4, 240)
+cap.set(3, 640)
+cap.set(4, 480)
 
 def adjust_time(current_time):
     if current_time >= time(13, 0) and current_time <= time(16, 0):
@@ -47,6 +48,7 @@ def detect_faces():
     encodeCurFrame = face_recognition.face_encodings(imgS, face_locations)
 
     response_data = {"detected_faces": []}
+    any_recognized = False  # Flag to check if any face is recognized
 
     for encodeFace, faceLoc in zip(encodeCurFrame, face_locations):
         matches = face_recognition.compare_faces(encodeListKnow, encodeFace)
@@ -55,6 +57,7 @@ def detect_faces():
         matchIndex = np.argmin(faceDis)
 
         if matches[matchIndex]:
+            any_recognized = True  # Set flag to True if face is recognized
             student_id = studentIds[matchIndex]
             student_data_ref = db.reference(f"Students/{student_id}")
             student_data = student_data_ref.get()
@@ -85,7 +88,31 @@ def detect_faces():
                 "student_data": student_data,
                 "subject_info": subject_info
             })
+        else:
+            # If the face is not matched, set student ID as "Unknown"
+            response_data["detected_faces"].append({
+                "student_id": "Unknown",
+                "location": faceLoc,
+                "department": "Unknown",
+                "student_data": None,
+                "subject_info": None
+            })
+
+    # Convert the detected faces data to a pandas DataFrame
+    detected_faces_df = pd.DataFrame(response_data["detected_faces"])
+
+    # Add a column for the time of saving
+    detected_faces_df['Time for save'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
+    # Save the data to the Excel file
+    try:
+        existing_data = pd.read_excel('detected_faces.xlsx', engine='openpyxl')
+        combined_data = pd.concat([existing_data, detected_faces_df], ignore_index=True)
+        combined_data.to_excel('detected_faces.xlsx', index=False)
+    except FileNotFoundError:
+        # If the file doesn't exist, create a new one
+        detected_faces_df.to_excel('detected_faces.xlsx', index=False)
+
     return jsonify(response_data)
 
 if __name__ == '__main__':
